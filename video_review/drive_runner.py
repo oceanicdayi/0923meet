@@ -158,7 +158,7 @@ def zip_parts(folder, destination, prefix, target_bytes=95_000_000):
 
 
 def execute_drive_review(service, credentials, folder_id, work, model, model_name,
-                          run_tag='v1', make_clips=True, frame_interval=15, only_ids=None):
+                          run_tag='v1', make_clips=True, frame_interval=15, only_ids=None, initial_prompt=''):
     work = Path(work); work.mkdir(parents=True, exist_ok=True)
     session = AuthorizedSession(credentials)
     source = discover(service, folder_id); write_json(work / 'source_manifest.json', source)
@@ -193,7 +193,8 @@ def execute_drive_review(service, credentials, folder_id, work, model, model_nam
                         authenticated_download(session, cf, td / cf['name'])
                 entry['processing'] = process_video(original, folder, normalized, model, model_name,
                                                       clips=make_clips, interval=frame_interval, ocr=True,
-                                                      checkpoint=lambda path: upload_output(service, path, checkpoints['id']))
+                                                      checkpoint=lambda path: upload_output(service, path, checkpoints['id']),
+                                                      initial_prompt=initial_prompt)
             elif mime.startswith('text/') or mime == 'application/json':
                 # Exact original bytes plus a decoded view; no guessed silent replacement.
                 shutil.copy2(original, folder / 'original_text.bin')

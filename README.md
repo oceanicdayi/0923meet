@@ -61,8 +61,12 @@ python -m video_review.cli \
   --work-dir ./work \
   --model large-v3 \
   --frame-interval 15 \
-  --make-clips
+  --make-clips \
+  --initial-prompt "地球物理、板塊構造、地震、震源深度、PyGMT、GitHub、Colab、Gemini、CER。"
 ```
+
+`--initial-prompt` is optional and only biases ASR toward specific jargon/names; omit it for
+general-purpose recordings.
 
 Omit `--model` to only download, scan scenes, and OCR (no transcription).
 Rerunning with the same `--work-dir` and `--run-tag` resumes: downloaded

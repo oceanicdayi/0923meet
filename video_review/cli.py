@@ -30,6 +30,8 @@ def parse_args(argv=None):
                     help='faster-whisper compute_type; defaults to float16 on cuda, int8 on cpu')
     p.add_argument('--frame-interval', type=int, default=15, help='Seconds between grid frame captures')
     p.add_argument('--make-clips', action='store_true', help='Write 5-minute review clips')
+    p.add_argument('--initial-prompt', default='',
+                    help='Domain vocabulary hint passed to faster-whisper (e.g. jargon, names) to bias ASR accuracy')
     p.add_argument('--only-ids', default=None,
                     help='Comma-separated Drive file IDs to (re)process; every other file is marked not_selected')
     return p.parse_args(argv)
@@ -69,7 +71,7 @@ def main(argv=None):
     records, output_folder = execute_drive_review(
         service, credentials, args.folder_id, args.work_dir, model, model_name,
         run_tag=args.run_tag, make_clips=args.make_clips, frame_interval=args.frame_interval,
-        only_ids=only_ids)
+        only_ids=only_ids, initial_prompt=args.initial_prompt)
 
     for r in records:
         p = r.get('processing', {})

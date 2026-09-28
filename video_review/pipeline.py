@@ -141,7 +141,7 @@ def extract_frames(source, folder, duration, interval=15, scene_threshold=0.09):
             'full_stream_scan_completed': True, 'visual_review': 'pending'}
 
 
-def transcribe_chunks(folder, chunks, model, model_name, checkpoint=None):
+def transcribe_chunks(folder, chunks, model, model_name, checkpoint=None, initial_prompt=''):
     folder = Path(folder); td = folder / 'transcripts'; td.mkdir(exist_ok=True)
     accepted = []
     for c in chunks:
@@ -160,7 +160,7 @@ def transcribe_chunks(folder, chunks, model, model_name, checkpoint=None):
                 str(folder / c['file']), **ASR_CONFIG,
                 beam_size=5, vad_filter=True,
                 vad_parameters={'min_silence_duration_ms': 800}, condition_on_previous_text=False,
-                initial_prompt='')
+                initial_prompt=initial_prompt)
             segs = []
             for s in segments:
                 d = s._asdict(); d['words'] = [w._asdict() for w in (s.words or [])]; segs.append(d)
@@ -259,7 +259,7 @@ def make_review_clips(source, folder, duration, max_bytes=90_000_000):
     return records
 
 
-def process_video(source, folder, meta, model=None, model_name=None, clips=False, interval=15, checkpoint=None, ocr=False):
+def process_video(source, folder, meta, model=None, model_name=None, clips=False, interval=15, checkpoint=None, ocr=False, initial_prompt=''):
     source = Path(source); folder = Path(folder); folder.mkdir(parents=True, exist_ok=True)
     old = folder / 'status.json'
     status = json.loads(old.read_text()) if old.exists() else {}
@@ -283,7 +283,7 @@ def process_video(source, folder, meta, model=None, model_name=None, clips=False
         if ocr:
             status['ocr'] = ocr_frames(folder); write_json(old, status)
         if model is not None:
-            status['transcription'] = transcribe_chunks(folder, chunks, model, model_name, checkpoint)
+            status['transcription'] = transcribe_chunks(folder, chunks, model, model_name, checkpoint, initial_prompt)
         else:
             status.setdefault('transcription', {'asr_pass_completed': False, 'reason': 'ASR not run'})
         if clips:
