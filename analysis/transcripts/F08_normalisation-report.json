@@ -1,0 +1,218 @@
+{
+  "opencc_config": "s2twp",
+  "glossary_terms": 10,
+  "segments": 834,
+  "converted_segments": 469,
+  "glossary_segments": 16,
+  "human_verified": false,
+  "details": [
+    {
+      "start": 135.86,
+      "timestamp": "00:02:15.860",
+      "raw": "可是好像爆炸後的批波好像不是很明顯",
+      "text": "可是好像爆炸後的P波好像不是很明顯",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 142.12,
+      "timestamp": "00:02:22.120",
+      "raw": "試過去看出有沒有它的批波",
+      "text": "試過去看出有沒有它的P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 188.19,
+      "timestamp": "00:03:08.190",
+      "raw": "那一個有明顯的批波",
+      "text": "那一個有明顯的P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 191.01,
+      "timestamp": "00:03:11.010",
+      "raw": "但是台南那個沒有明顯批波",
+      "text": "但是臺南那個沒有明顯P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 699.44,
+      "timestamp": "00:11:39.440",
+      "raw": "前面那個比較像是批波嗎",
+      "text": "前面那個比較像是P波嗎",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 814.59,
+      "timestamp": "00:13:34.590",
+      "raw": "也跟批波衰減的形式不同",
+      "text": "也跟P波衰減的形式不同",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 817.77,
+      "timestamp": "00:13:37.770",
+      "raw": "你看那個批波衰減的形式",
+      "text": "你看那個P波衰減的形式",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 854.9300000000001,
+      "timestamp": "00:14:14.930",
+      "raw": "但是你前面的那張圖有看看到你到前面的批波好像有分兩條線",
+      "text": "但是你前面的那張圖有看看到你到前面的P波好像有分兩條線",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 905.55,
+      "timestamp": "00:15:05.550",
+      "raw": "所以它的正幅特別大",
+      "text": "所以它的振幅特別大",
+      "replacements": [
+        {
+          "from": "正幅特別大",
+          "to": "振幅特別大",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 938.48,
+      "timestamp": "00:15:38.480",
+      "raw": "然后你们都有观察到批波",
+      "text": "然後你們都有觀察到P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1286.6,
+      "timestamp": "00:21:26.600",
+      "raw": "你有看到批波",
+      "text": "你有看到P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1434.01,
+      "timestamp": "00:23:54.010",
+      "raw": "能不能看出清楚的批波的",
+      "text": "能不能看出清楚的P波的",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1611.66,
+      "timestamp": "00:26:51.660",
+      "raw": "先批波",
+      "text": "先P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1615.78,
+      "timestamp": "00:26:55.780",
+      "raw": "那你的那个批波的",
+      "text": "那你的那個P波的",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1622.8899999999999,
+      "timestamp": "00:27:02.890",
+      "raw": "批波的速度大概是多快",
+      "text": "P波的速度大概是多快",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1632.9,
+      "timestamp": "00:27:12.900",
+      "raw": "批波的速度是多少",
+      "text": "P波的速度是多少",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}
