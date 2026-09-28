@@ -1,0 +1,101 @@
+{
+  "opencc_config": "s2twp",
+  "glossary_terms": 10,
+  "segments": 696,
+  "converted_segments": 263,
+  "glossary_segments": 7,
+  "human_verified": false,
+  "details": [
+    {
+      "start": 1199.94,
+      "timestamp": "00:19:59.940",
+      "raw": "的地震站有看到明顯的批波",
+      "text": "的地震站有看到明顯的P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1222.85,
+      "timestamp": "00:20:22.850",
+      "raw": "如果是地表传递过来的批波",
+      "text": "如果是地表傳遞過來的P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1232.37,
+      "timestamp": "00:20:32.370",
+      "raw": "然后所以批波的这个斜率",
+      "text": "然後所以P波的這個斜率",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1248.5,
+      "timestamp": "00:20:48.500",
+      "raw": "这些批波其实蛮明显的",
+      "text": "這些P波其實蠻明顯的",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1258.34,
+      "timestamp": "00:20:58.340",
+      "raw": "但是跟那个批波",
+      "text": "但是跟那個P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1269.38,
+      "timestamp": "00:21:09.380",
+      "raw": "这个批波其实非常的明显",
+      "text": "這個P波其實非常的明顯",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "start": 1274.94,
+      "timestamp": "00:21:14.940",
+      "raw": "说这些站的批波",
+      "text": "說這些站的P波",
+      "replacements": [
+        {
+          "from": "批波",
+          "to": "P波",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}
