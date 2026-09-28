@@ -64,6 +64,31 @@ python -m video_review.cli \
   --make-clips
 ```
 
+### Link-shared folders without credentials
+
+If the source folder is shared as "anyone with the link" and you have no
+Drive OAuth credentials, `--anonymous` reads the file list from the folder's
+public page and fetches the originals over plain HTTPS. Nothing is uploaded:
+every artifact stays under `--work-dir`.
+
+```bash
+python -m video_review.cli \
+  --folder-id 1ai4iZFgyjom4DQ92YTkJsEUEYp9vzYYw \
+  --anonymous --work-dir ./work --model large-v3 \
+  --zh-tw --glossary glossary.json
+```
+
+Anonymous listing is refused rather than truncated: a paginated listing or a
+subfolder raises, because either would silently drop recordings. Anonymous
+downloads are validated against the advertised byte size only — Drive does
+not expose `md5Checksum` without credentials.
+
+`--zh-tw` adds `transcript.zh_tw.{md,srt,json}` and `ocr.zh_tw.md` converted
+to Traditional Chinese with OpenCC `s2twp`; the raw ASR text is kept. An
+optional `--glossary` JSON maps reliably mis-heard terms to the intended ones
+(e.g. `{"平補": "頻譜"}`) and logs every substitution with its timestamp in
+`zh_tw_report.json` so it can be checked against the audio.
+
 Omit `--model` to only download, scan scenes, and OCR (no transcription).
 Rerunning with the same `--work-dir` and `--run-tag` resumes: downloaded
 originals, ASR checkpoints, extracted frames, and clips already on disk (or

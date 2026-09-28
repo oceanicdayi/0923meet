@@ -5,6 +5,10 @@ faster-whisper, extracts scene-change frames with OCR, and (optionally)
 writes 5-minute review clips -- then uploads all derived artifacts to a new
 Drive output folder next to the source. See README.md for what "complete"
 means here: this is machine preprocessing only, not verified content review.
+
+With `--anonymous` the same preprocessing runs against a link-shared folder
+without any Drive credentials, keeping every artifact in the local work
+directory instead of uploading an output folder.
 """
 from __future__ import annotations
 
@@ -12,9 +16,6 @@ import argparse
 import os
 import shutil
 import sys
-
-from .auth import default_credentials, drive_service
-from .drive_runner import execute_drive_review
 
 
 def parse_args(argv=None):
@@ -32,6 +33,14 @@ def parse_args(argv=None):
     p.add_argument('--make-clips', action='store_true', help='Write 5-minute review clips')
     p.add_argument('--only-ids', default=None,
                     help='Comma-separated Drive file IDs to (re)process; every other file is marked not_selected')
+    p.add_argument('--anonymous', action='store_true',
+                    help='Read a link-shared folder over public HTTPS with no credentials; '
+                         'results stay in --work-dir and nothing is uploaded')
+    p.add_argument('--zh-tw', action='store_true',
+                    help='Also write Traditional-Chinese normalised transcript/OCR (OpenCC s2twp)')
+    p.add_argument('--glossary', default=None,
+                    help='JSON map of mis-heard term -> correct term, applied to the --zh-tw output '
+                         'and logged per occurrence in zh_tw_report.json')
     return p.parse_args(argv)
 
 
@@ -54,10 +63,19 @@ def load_whisper_model(name, device, compute_type):
                              cpu_threads=min(6, os.cpu_count() or 2)), 'cpu'
 
 
+def normalize_zh_tw(records, glossary):
+    from .zh_tw import normalize_ocr, normalize_transcript
+
+    for r in records:
+        folder = r.get('artifacts_dir')
+        if not folder:
+            continue
+        r['zh_tw'] = normalize_transcript(folder, glossary)
+        r['zh_tw_ocr'] = normalize_ocr(folder, glossary)
+
+
 def main(argv=None):
     args = parse_args(argv)
-    credentials = default_credentials()
-    service = drive_service(credentials)
 
     model = None
     model_name = args.model or 'none'
@@ -66,10 +84,25 @@ def main(argv=None):
         print(f'Loaded ASR model {args.model} on {device}')
 
     only_ids = args.only_ids.split(',') if args.only_ids else None
-    records, output_folder = execute_drive_review(
-        service, credentials, args.folder_id, args.work_dir, model, model_name,
-        run_tag=args.run_tag, make_clips=args.make_clips, frame_interval=args.frame_interval,
-        only_ids=only_ids)
+    if args.anonymous:
+        from .public_runner import execute_public_review
+
+        records, output_folder = execute_public_review(
+            args.folder_id, args.work_dir, model, model_name,
+            run_tag=args.run_tag, make_clips=args.make_clips, frame_interval=args.frame_interval,
+            only_ids=only_ids)
+    else:
+        from .auth import default_credentials, drive_service
+        from .drive_runner import execute_drive_review
+
+        credentials = default_credentials()
+        records, output_folder = execute_drive_review(
+            drive_service(credentials), credentials, args.folder_id, args.work_dir, model, model_name,
+            run_tag=args.run_tag, make_clips=args.make_clips, frame_interval=args.frame_interval,
+            only_ids=only_ids)
+
+    if args.zh_tw:
+        normalize_zh_tw(records, args.glossary)
 
     for r in records:
         p = r.get('processing', {})
@@ -79,7 +112,7 @@ def main(argv=None):
               'scene_scan=', p.get('visual_index', {}).get('full_stream_scan_completed', False),
               'content_reviewed=', r.get('content_analysis_complete', False),
               'error=', r.get('error', ''))
-    link = output_folder.get('webViewLink')
+    link = output_folder.get('webViewLink') or output_folder.get('local_output')
     if link:
         print('Output folder:', link)
 
